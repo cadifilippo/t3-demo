@@ -1,18 +1,13 @@
-import {
-  SignInButton,
-  SignOutButton,
-  UserButton,
-  useUser,
-} from "@clerk/nextjs";
-import { type NextPage } from "next";
-import Head from "next/head";
-import { useState } from "react";
-import { api } from "~/utils/api";
-import type { RouterOutputs } from "../utils/api";
-import Image from "next/image";
+import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { LoadingPage, LoadingSpinner } from "~/components/loading";
+import { type NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import { useState } from "react";
+import { LoadingPage } from "../components/loading";
+import { api } from "~/utils/api";
+import type { RouterOutputs } from "../utils/api";
 
 dayjs.extend(relativeTime);
 
