@@ -13,19 +13,19 @@ const isPublic = (path: string) => {
 
 export default withClerkMiddleware((request: NextRequest) => {
   console.log(`🛠 ::: [SERVER] ::: Middleware running on every request`);
-  if (isPublic(request.nextUrl.pathname)) {
-    return NextResponse.next();
-  }
-  // if the user is not signed in redirect them to the sign in page.
-  const { userId } = getAuth(request);
+  // if (isPublic(request.nextUrl.pathname)) {
+  //   return NextResponse.next();
+  // }
+  // // if the user is not signed in redirect them to the sign in page.
+  // const { userId } = getAuth(request);
 
-  if (!userId) {
-    // redirect the users to /pages/sign-in/[[...index]].ts
+  // if (!userId) {
+  //   // redirect the users to /pages/sign-in/[[...index]].ts
 
-    const signInUrl = new URL("/sign-in", request.url);
-    signInUrl.searchParams.set("redirect_url", request.url);
-    return NextResponse.redirect(signInUrl);
-  }
+  //   const signInUrl = new URL("/sign-in", request.url);
+  //   signInUrl.searchParams.set("redirect_url", request.url);
+  //   return NextResponse.redirect(signInUrl);
+  // }
   return NextResponse.next();
 });
 // Stop Middleware running on static files
