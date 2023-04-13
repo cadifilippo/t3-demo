@@ -1,10 +1,12 @@
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import Head from "next/head";
+import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
   const user = useUser();
-  console.log(user);
+  const { data } = api.posts.getAll.useQuery();
+  console.log(data);
   return (
     <>
       <Head>
@@ -13,15 +15,31 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        {!user?.isSignedIn ? (
-          <SignInButton mode="modal">
-            <button className="btn">Sign in</button>
-          </SignInButton>
-        ) : (
-          <SignOutButton>
-            <button className="btn">Sign out</button>
-          </SignOutButton>
-        )}
+        <div>
+          {!user?.isSignedIn ? (
+            <SignInButton mode="modal">
+              <button className="btn">Sign in</button>
+            </SignInButton>
+          ) : (
+            <SignOutButton>
+              <button className="btn">Sign out</button>
+            </SignOutButton>
+          )}
+        </div>
+        <div style={{ marginTop: "16px" }}>
+          {data?.map((post) => (
+            <p
+              key={post.id}
+              style={{
+                textAlign: "center",
+                color: "white",
+                fontWeight: "bold",
+              }}
+            >
+              {post.content}
+            </p>
+          ))}
+        </div>
       </main>
     </>
   );
